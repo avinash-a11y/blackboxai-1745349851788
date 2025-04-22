@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blood Donor & Receiver App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="app.js"></script>
+</head>
+<body class="bg-gray-100 font-['Roboto'] min-h-screen flex flex-col items-center p-4">
+  <header class="mb-8 text-center">
+    <h1 class="text-4xl font-bold text-red-600 mb-2">Blood Donor & Receiver App</h1>
+    <p class="text-gray-700">Register as a donor or receiver and find blood matches easily.</p>
+  </header>
+
+  <main class="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- Donor Form -->
+    <section class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-2xl font-semibold mb-4 text-red-600 flex items-center gap-2">
+        <i class="fas fa-tint"></i> Donor Registration
+      </h2>
+      <form id="donorForm" class="space-y-4">
+        <input type="text" id="donorName" placeholder="Full Name" required class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-400" />
+        <input type="email" id="donorEmail" placeholder="Email" required class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-400" />
+        <input type="tel" id="donorPhone" placeholder="Phone Number" required class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-400" />
+        <select id="donorBloodGroup" required class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-400">
+          <option value="" disabled selected>Select Blood Group</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+        </select>
+        <input type="text" id="donorCity" placeholder="City" required class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-400" />
+        <button type="submit" class="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700 transition">Register as Donor</button>
+      </form>
+    </section>
+
+    <!-- Receiver Form -->
+    <section class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-2xl font-semibold mb-4 text-blue-600 flex items-center gap-2">
+        <i class="fas fa-hand-holding-medical"></i> Receiver Registration
+      </h2>
+      <form id="receiverForm" class="space-y-4">
+        <input type="text" id="receiverName" placeholder="Full Name" required class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <input type="email" id="receiverEmail" placeholder="Email" required class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <input type="tel" id="receiverPhone" placeholder="Phone Number" required class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <select id="receiverBloodGroup" required class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <option value="" disabled selected>Select Blood Group</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+        </select>
+        <input type="text" id="receiverCity" placeholder="City" required class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">Register as Receiver</button>
+      </form>
+    </section>
+  </main>
+
+  <section class="w-full max-w-6xl mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- Donors List -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-xl font-semibold mb-4 text-red-600 flex items-center gap-2">
+        <i class="fas fa-tint"></i> Donors List
+      </h3>
+      <ul id="donorsList" class="space-y-3 max-h-96 overflow-y-auto"></ul>
+    </div>
+
+    <!-- Receivers List -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-xl font-semibold mb-4 text-blue-600 flex items-center gap-2">
+        <i class="fas fa-hand-holding-medical"></i> Receivers List
+      </h3>
+      <ul id="receiversList" class="space-y-3 max-h-96 overflow-y-auto"></ul>
+    </div>
+  </section>
+
+  <!-- Charts Section -->
+  <section class="w-full max-w-6xl mt-12 bg-white rounded-lg shadow p-6">
+    <h2 class="text-2xl font-semibold mb-6 text-gray-800">Blood Group Distribution</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+        <h3 class="text-xl font-semibold mb-4 text-red-600 flex items-center gap-2">
+          <i class="fas fa-tint"></i> Donors
+        </h3>
+        <canvas id="donorChart" class="w-full max-w-md"></canvas>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold mb-4 text-blue-600 flex items-center gap-2">
+          <i class="fas fa-hand-holding-medical"></i> Receivers
+        </h3>
+        <canvas id="receiverChart" class="w-full max-w-md"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
